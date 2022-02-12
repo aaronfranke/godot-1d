@@ -9,6 +9,7 @@ def configure(env):
 def get_doc_classes():
     return [
         "Node1D",
+        "Sprite1D",
     ]
 
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Sprite1D" inherits="Node1D" version="4.0">
+	<brief_description>
+		A 1D sprite node that displays an image in 1D.
+	</brief_description>
+	<description>
+		A node that displays a 1D texture. An un-animated 1D texture is an image with a height of 1 pixel.
+		If the texture has multiple rows of pixels (height greater than 1px), only one row of pixels will be displayed at a time. Each is a 1D frame and the frame can be changed by adjusting [member frame].
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="get_frame_count" qualifiers="const">
+			<return type="int" />
+			<description>
+				Returns the amount of frames available to this [Sprite1D]. This is the same the height of the image. Each row of pixels is a 1D frame.
+			</description>
+		</method>
+		<method name="get_rect" qualifiers="const">
+			<return type="Rect2" />
+			<description>
+				Returns a [Rect2] representing the [Sprite1D]'s boundary in local coordinates. Can be used to detect if the [Sprite1D] was clicked. This behaves identically to [Sprite2D]'s method.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="frame" type="int" setter="set_frame" getter="get_frame" default="0">
+			The current frame of the [Sprite1D]. Each row of pixels is a 1D frame.
+		</member>
+		<member name="texture" type="Texture2D" setter="set_texture" getter="get_texture">
+			The texture of the [Sprite1D]. Only one row of pixels will be displayed at a time. If the texture has multiple rows of pixels (height greater than 1), each is a 1D frame.
+		</member>
+	</members>
+	<signals>
+		<signal name="frame_changed">
+			<description>
+				Emitted when the [member frame] changes.
+			</description>
+		</signal>
+		<signal name="texture_changed">
+			<description>
+				Emitted when the [member texture] changes.
+			</description>
+		</signal>
+	</signals>
+</class>
