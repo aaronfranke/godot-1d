@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Node1D" inherits="CanvasItem" version="4.0">
+	<brief_description>
+		A 1D game object, inherited by all 1D-related nodes. Has a position, scale, and Z index.
+	</brief_description>
+	<description>
+		A 1D game object, with a position, scale, and Z index. All 1D nodes, including physics objects and sprites, inherit from Node1D. Use Node1D as a parent node to move and scale children in a 1D project. The node's render order is determined by the Z index.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="apply_scale">
+			<return type="void" />
+			<argument index="0" name="ratio" type="float" />
+			<description>
+				Multiplies the current scale by the [code]ratio[/code] value.
+			</description>
+		</method>
+		<method name="translate">
+			<return type="void" />
+			<argument index="0" name="offset" type="float" />
+			<description>
+				Translates the node by the given [code]offset[/code] in local coordinates.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="position" type="float" setter="set_position" getter="get_position" default="0.0">
+			Position, relative to the node's parent.
+		</member>
+		<member name="scale" type="float" setter="set_scale" getter="get_scale" default="1.0">
+			The node's scale. Unscaled value: [code]1.0[/code].
+		</member>
+		<member name="z_as_relative" type="bool" setter="set_z_as_relative" getter="is_z_relative" default="true">
+			If [code]true[/code], the node's Z index is relative to its parent's Z index. If this node's Z index is 2 and its parent's effective Z index is 3, then this node's effective Z index will be 2 + 3 = 5.
+		</member>
+		<member name="z_index" type="int" setter="set_z_index" getter="get_z_index" default="0">
+			Z index. Affects the order in which the nodes render. A node with a higher Z index will display in front of others. Must be between [constant RenderingServer.CANVAS_ITEM_Z_MIN] and [constant RenderingServer.CANVAS_ITEM_Z_MAX] (inclusive).
+		</member>
+	</members>
+</class>
