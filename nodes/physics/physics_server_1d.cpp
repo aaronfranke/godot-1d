@@ -2,7 +2,7 @@
 
 #include "scene/scene_string_names.h"
 
-#define DOES_MOVEMENT_OVERLAP_STILL_BODY                                       \
+#define IF_MOVEMENT_OVERLAPS_STILL_BODY                                        \
 	real_t still_body_position = still_body->get_position();                   \
 	real_t still_body_extents = still_body->get_size() / 2;                    \
 	real_t still_body_left_extent = still_body_position - still_body_extents;  \
@@ -51,7 +51,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 	// Detect collisions with StaticBody1D nodes and push our movement back.
 	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
 		StaticBody1D *still_body = E->get();
-		DOES_MOVEMENT_OVERLAP_STILL_BODY {
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			if (body_position < still_body_position) {
 				real_t farthest_possible_position = still_body_left_extent - body_extents;
 				if (farthest_possible_position < new_body_position) {
@@ -72,7 +72,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 			// We don't want to collide with ourself!
 			continue;
 		}
-		DOES_MOVEMENT_OVERLAP_STILL_BODY {
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			if (body_position < still_body_position) {
 				real_t farthest_possible_position = still_body_left_extent - body_extents;
 				if (farthest_possible_position < new_body_position) {
@@ -94,7 +94,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 	real_t end_right_extent = new_body_position + body_extents;
 	for (Set<Area1D *>::Element *E = _areas.front(); E; E = E->next()) {
 		Area1D *still_body = E->get();
-		DOES_MOVEMENT_OVERLAP_STILL_BODY {
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
 			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
 			Variant body_variant = Variant(p_body);
@@ -123,6 +123,128 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 	return body_position + p_movement - new_body_position;
 }
 
+void PhysicsServer1D::move_area(Area1D *p_area, const real_t p_movement) {
+	real_t area_position = p_area->get_position();
+	real_t area_extents = p_area->get_size() / 2;
+	real_t start_left_extent = area_position - area_extents;
+	real_t start_right_extent = area_position + area_extents;
+	real_t left_extent = start_left_extent;
+	real_t right_extent = start_right_extent;
+	if (p_movement < 0) {
+		left_extent += p_movement;
+	} else {
+		right_extent += p_movement;
+	}
+	// Start by assuming we can move the whole way.
+	real_t new_body_position = area_position + p_movement;
+	p_area->set_position(new_body_position);
+	real_t end_left_extent = new_body_position - area_extents;
+	real_t end_right_extent = new_body_position + area_extents;
+
+	// Detect intersections with StaticBody1D nodes.
+	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
+		StaticBody1D *still_body = E->get();
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
+			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
+			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
+			Variant still_body_variant = Variant(still_body);
+			if (start_overlaps && end_overlaps) {
+				// Do nothing. See the comments in move_and_collide for details.
+			} else if (start_overlaps) {
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_exited, still_body_variant);
+			} else if (end_overlaps) {
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_entered, still_body_variant);
+			} else {
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_entered, still_body_variant);
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_exited, still_body_variant);
+			}
+		}
+	}
+	// Detect intersections with KinematicBody1D nodes.
+	for (Set<KinematicBody1D *>::Element *E = _kinematic_bodies.front(); E; E = E->next()) {
+		KinematicBody1D *still_body = E->get();
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
+			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
+			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
+			Variant still_body_variant = Variant(still_body);
+			if (start_overlaps && end_overlaps) {
+				// Do nothing. See the comments in move_and_collide for details.
+			} else if (start_overlaps) {
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_exited, still_body_variant);
+			} else if (end_overlaps) {
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_entered, still_body_variant);
+			} else {
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_entered, still_body_variant);
+				p_area->emit_signal(SceneStringNames::get_singleton()->body_exited, still_body_variant);
+			}
+		}
+	}
+	// Detect intersections with Area1D nodes.
+	for (Set<Area1D *>::Element *E = _areas.front(); E; E = E->next()) {
+		Area1D *still_body = E->get();
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
+			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
+			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
+			Variant area_variant = Variant(p_area);
+			Variant still_body_variant = Variant(still_body);
+			if (start_overlaps && end_overlaps) {
+				// Do nothing. See the comments in move_and_collide for details.
+			} else if (start_overlaps) {
+				still_body->emit_signal(SceneStringNames::get_singleton()->area_exited, area_variant);
+				p_area->emit_signal(SceneStringNames::get_singleton()->area_exited, still_body_variant);
+			} else if (end_overlaps) {
+				still_body->emit_signal(SceneStringNames::get_singleton()->area_entered, area_variant);
+				p_area->emit_signal(SceneStringNames::get_singleton()->area_entered, still_body_variant);
+			} else {
+				still_body->emit_signal(SceneStringNames::get_singleton()->area_entered, area_variant);
+				p_area->emit_signal(SceneStringNames::get_singleton()->area_entered, still_body_variant);
+				still_body->emit_signal(SceneStringNames::get_singleton()->area_exited, area_variant);
+				p_area->emit_signal(SceneStringNames::get_singleton()->area_exited, still_body_variant);
+			}
+		}
+	}
+}
+
+Array PhysicsServer1D::get_overlapping_areas(const Area1D *p_area) const {
+	real_t area_position = p_area->get_position();
+	real_t area_extents = p_area->get_size() / 2;
+	real_t left_extent = area_position - area_extents;
+	real_t right_extent = area_position + area_extents;
+	Array ret;
+	for (Set<Area1D *>::Element *E = _areas.front(); E; E = E->next()) {
+		Area1D *still_body = E->get();
+		if (still_body == p_area) {
+			// We don't want to overlap with ourself!
+			continue;
+		}
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
+			ret.push_back(still_body);
+		}
+	}
+	return ret;
+}
+
+Array PhysicsServer1D::get_overlapping_bodies(const Area1D *p_area) const {
+	real_t area_position = p_area->get_position();
+	real_t area_extents = p_area->get_size() / 2;
+	real_t left_extent = area_position - area_extents;
+	real_t right_extent = area_position + area_extents;
+	Array ret;
+	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
+		StaticBody1D *still_body = E->get();
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
+			ret.push_back(still_body);
+		}
+	}
+	for (Set<KinematicBody1D *>::Element *E = _kinematic_bodies.front(); E; E = E->next()) {
+		KinematicBody1D *still_body = E->get();
+		IF_MOVEMENT_OVERLAPS_STILL_BODY {
+			ret.push_back(still_body);
+		}
+	}
+	return ret;
+}
+
 PhysicsServer1D *PhysicsServer1D::_singleton = nullptr;
 
 PhysicsServer1D *PhysicsServer1D::get_singleton() {
@@ -130,8 +252,4 @@ PhysicsServer1D *PhysicsServer1D::get_singleton() {
 		_singleton = memnew(PhysicsServer1D);
 	}
 	return _singleton;
-}
-
-PhysicsServer1D::PhysicsServer1D() {
-	//_areas = *memnew(Set<Area1D *>);
 }

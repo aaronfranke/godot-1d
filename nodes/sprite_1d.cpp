@@ -124,6 +124,10 @@ void Sprite1D::_texture_changed() {
 	}
 }
 
+Sprite1D::Sprite1D() {
+	set_texture_filter(TextureFilter::TEXTURE_FILTER_NEAREST);
+}
+
 void Sprite1D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_texture", "texture"), &Sprite1D::set_texture);
 	ClassDB::bind_method(D_METHOD("get_texture"), &Sprite1D::get_texture);

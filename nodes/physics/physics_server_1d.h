@@ -26,8 +26,10 @@ public:
 	void unregister_static_body(Set<StaticBody1D *>::Element *p_body);
 
 	real_t move_and_collide(KinematicBody1D *p_body, const real_t p_movement);
+	void move_area(Area1D *p_area, const real_t p_movement);
 
-	PhysicsServer1D();
+	Array get_overlapping_areas(const Area1D *p_area) const;
+	Array get_overlapping_bodies(const Area1D *p_body) const;
 };
 
 #endif // PHYSICS_SERVER_1D_H

@@ -8,7 +8,54 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+		<method name="get_overlapping_areas" qualifiers="const">
+			<return type="Array" />
+			<description>
+				Returns a list of intersecting [Area1D]s.
+			</description>
+		</method>
+		<method name="get_overlapping_bodies" qualifiers="const">
+			<return type="Array" />
+			<description>
+				Returns a list of intersecting [CollisionObject1D]s.
+			</description>
+		</method>
+		<method name="move">
+			<return type="void" />
+			<argument index="0" name="movement" type="float" />
+			<description>
+				Moves this [Area1D] by the given amount, detecting overlapping [CollisionObject1D] nodes along the way (will emit entered or exited signals).
+			</description>
+		</method>
+		<method name="overlaps_area" qualifiers="const">
+			<return type="bool" />
+			<argument index="0" name="area" type="Area1D" />
+			<description>
+				Returns whether or not these two [Area1D] nodes overlap.
+			</description>
+		</method>
+		<method name="overlaps_body" qualifiers="const">
+			<return type="bool" />
+			<argument index="0" name="body" type="CollisionObject1D" />
+			<description>
+				Returns whether or not this [Area1D] overlaps the given [CollisionObject1D].
+			</description>
+		</method>
+	</methods>
 	<signals>
+		<signal name="area_entered">
+			<argument index="0" name="area" type="Area1D" />
+			<description>
+				Emitted when a body enters this area. The only parameter is the other area.
+			</description>
+		</signal>
+		<signal name="area_exited">
+			<argument index="0" name="area" type="Area1D" />
+			<description>
+				Emitted when a body exits this area. The only parameter is the other area.
+			</description>
+		</signal>
 		<signal name="body_entered">
 			<argument index="0" name="body" type="CollisionObject1D" />
 			<description>

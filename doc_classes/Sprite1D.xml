@@ -30,6 +30,7 @@
 		<member name="texture" type="Texture2D" setter="set_texture" getter="get_texture">
 			The texture of the [Sprite1D]. Only one row of pixels will be displayed at a time. If the texture has multiple rows of pixels (height greater than 1), each is a 1D frame.
 		</member>
+		<member name="texture_filter" type="int" setter="set_texture_filter" getter="get_texture_filter" overrides="CanvasItem" enum="CanvasItem.TextureFilter" default="1" />
 	</members>
 	<signals>
 		<signal name="frame_changed">
