@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Area1D" inherits="CollisionObject1D" version="4.0">
+	<brief_description>
+		1D area for physics detection.
+	</brief_description>
+	<description>
+		1D area that detects [CollisionObject1D] nodes overlapping, entering, or exiting.
+	</description>
+	<tutorials>
+	</tutorials>
+	<signals>
+		<signal name="body_entered">
+			<argument index="0" name="body" type="CollisionObject1D" />
+			<description>
+				Emitted when a body enters this area. The only parameter is the body.
+			</description>
+		</signal>
+		<signal name="body_exited">
+			<argument index="0" name="body" type="CollisionObject1D" />
+			<description>
+				Emitted when a body exits this area. The only parameter is the body.
+			</description>
+		</signal>
+	</signals>
+</class>

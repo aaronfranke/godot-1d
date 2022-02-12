@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="StaticBody1D" inherits="CollisionObject1D" version="4.0">
+	<brief_description>
+		1D physics body which is static and does not move.
+	</brief_description>
+	<description>
+		1D physics body which is static and does not move.
+	</description>
+	<tutorials>
+	</tutorials>
+</class>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="CollisionObject1D" inherits="Node1D" version="4.0">
+	<brief_description>
+		1D collision object base class (abstract, can't be instanced).
+	</brief_description>
+	<description>
+		1D collision object. This node is the base type for other physics nodes such as [Area1D] and [StaticBody1D] and can't be instaned directly.
+		Unlike 2D and 3D, there is no point to collision [b]shapes[/b]. In 1D, the only available geometric shape is a line segment. It only has a size. We interpret the node's position as the center of this shape.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="size" type="float" setter="set_size" getter="get_size" default="64.0">
+			The size of the line segment of this object.
+		</member>
+	</members>
+</class>

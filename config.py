@@ -11,6 +11,12 @@ def get_doc_classes():
         "Camera1D",
         "Node1D",
         "Sprite1D",
+        # Physics.
+        "Area1D",
+        "CollisionObject1D",
+        "KinematicBody1D",
+        "PhysicsServer1D",
+        "StaticBody1D",
     ]
 
 

@@ -7,3 +7,4 @@ env_1d = env_modules.Clone()
 
 env_1d.add_source_files(env.modules_sources, "*.cpp")
 env_1d.add_source_files(env.modules_sources, "nodes/*.cpp")
+env_1d.add_source_files(env.modules_sources, "nodes/physics/*.cpp")

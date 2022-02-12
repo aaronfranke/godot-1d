@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="KinematicBody1D" inherits="CollisionObject1D" version="4.0">
+	<brief_description>
+		1D kinematic body used for characters and other animated objects.
+	</brief_description>
+	<description>
+		1D kinematic body used for characters and other animated objects.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="move_and_collide">
+			<return type="float" />
+			<argument index="0" name="movement" type="float" />
+			<description>
+				Move the body by the given amount and collide with any [StaticBody1D] or [KinematicBody1D] nodes in the way.
+				The return value is the remainder of the movement after the collision. If the movement did not cause a collision, the return value is [code]0.0[/code].
+			</description>
+		</method>
+	</methods>
+</class>
