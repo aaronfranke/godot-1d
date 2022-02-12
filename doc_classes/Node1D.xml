@@ -25,11 +25,17 @@
 		</method>
 	</methods>
 	<members>
+		<member name="global_position" type="float" setter="set_global_position" getter="get_global_position">
+			The global position of this node. Prefer using [member position] instead if you don't specifically need global.
+		</member>
+		<member name="global_scale" type="float" setter="set_global_scale" getter="get_global_scale">
+			The global scale of this node. Prefer using [member scale] instead if you don't specifically need global.
+		</member>
 		<member name="position" type="float" setter="set_position" getter="get_position" default="0.0">
-			Position, relative to the node's parent.
+			The position of this node, relative to the node's parent.
 		</member>
 		<member name="scale" type="float" setter="set_scale" getter="get_scale" default="1.0">
-			The node's scale. Unscaled value: [code]1.0[/code].
+			The scale of this node, relative to the node's parent. Unscaled value: [code]1.0[/code].
 		</member>
 		<member name="z_as_relative" type="bool" setter="set_z_as_relative" getter="is_z_relative" default="true">
 			If [code]true[/code], the node's Z index is relative to its parent's Z index. If this node's Z index is 2 and its parent's effective Z index is 3, then this node's effective Z index will be 2 + 3 = 5.

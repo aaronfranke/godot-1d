@@ -20,6 +20,7 @@ protected:
 public:
 	void set_size(const real_t p_size);
 	real_t get_size() const;
+	real_t get_global_size() const;
 };
 
 #endif // COLLISION_OBJECT_1D_H

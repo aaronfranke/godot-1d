@@ -104,6 +104,40 @@ void Node1D::apply_scale(const real_t p_amount) {
 	set_scale(_scale * p_amount);
 }
 
+real_t Node1D::get_global_position() const {
+	Node1D *node_1d_parent = Object::cast_to<Node1D>(get_parent());
+	if (node_1d_parent) {
+		return node_1d_parent->get_global_position() + _position * node_1d_parent->get_global_scale();
+	}
+	return _position;
+}
+
+real_t Node1D::get_global_scale() const {
+	Node1D *node_1d_parent = Object::cast_to<Node1D>(get_parent());
+	if (node_1d_parent) {
+		return _scale * node_1d_parent->get_global_scale();
+	}
+	return _scale;
+}
+
+void Node1D::set_global_position(const real_t p_global_position) {
+	Node1D *node_1d_parent = Object::cast_to<Node1D>(get_parent());
+	if (node_1d_parent) {
+		set_position((p_global_position - node_1d_parent->get_global_position()) / node_1d_parent->get_global_scale());
+	} else {
+		set_position(p_global_position);
+	}
+}
+
+void Node1D::set_global_scale(const real_t p_global_scale) {
+	Node1D *node_1d_parent = Object::cast_to<Node1D>(get_parent());
+	if (node_1d_parent) {
+		set_scale(p_global_scale / node_1d_parent->get_global_scale());
+	} else {
+		set_scale(p_global_scale);
+	}
+}
+
 void Node1D::set_z_index(const int p_z) {
 	ERR_FAIL_COND(p_z < RS::CANVAS_ITEM_Z_MIN);
 	ERR_FAIL_COND(p_z > RS::CANVAS_ITEM_Z_MAX);
@@ -135,6 +169,11 @@ void Node1D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("translate", "offset"), &Node1D::translate);
 	ClassDB::bind_method(D_METHOD("apply_scale", "ratio"), &Node1D::apply_scale);
 
+	ClassDB::bind_method(D_METHOD("get_global_position"), &Node1D::get_global_position);
+	ClassDB::bind_method(D_METHOD("get_global_scale"), &Node1D::get_global_scale);
+	ClassDB::bind_method(D_METHOD("set_global_position", "global_position"), &Node1D::set_global_position);
+	ClassDB::bind_method(D_METHOD("set_global_scale", "global_scale"), &Node1D::set_global_scale);
+
 	ClassDB::bind_method(D_METHOD("set_z_index", "z_index"), &Node1D::set_z_index);
 	ClassDB::bind_method(D_METHOD("get_z_index"), &Node1D::get_z_index);
 	ClassDB::bind_method(D_METHOD("set_z_as_relative", "enable"), &Node1D::set_z_as_relative);
@@ -142,6 +181,8 @@ void Node1D::_bind_methods() {
 
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "position", PROPERTY_HINT_RANGE, "-99999,99999,0.001,or_lesser,or_greater,noslider,suffix:px"), "set_position", "get_position");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "scale"), "set_scale", "get_scale");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "global_position", PROPERTY_HINT_RANGE, "-99999,99999,0.001,or_lesser,or_greater,noslider,suffix:px", PROPERTY_USAGE_NONE), "set_global_position", "get_global_position");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "global_scale", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NONE), "set_global_scale", "get_global_scale");
 
 	ADD_GROUP("Ordering", "");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "z_index", PROPERTY_HINT_RANGE, itos(RS::CANVAS_ITEM_Z_MIN) + "," + itos(RS::CANVAS_ITEM_Z_MAX) + ",1"), "set_z_index", "get_z_index");

@@ -3,8 +3,8 @@
 #include "scene/scene_string_names.h"
 
 #define IF_MOVEMENT_OVERLAPS_STILL_BODY                                        \
-	real_t still_body_position = still_body->get_position();                   \
-	real_t still_body_extents = still_body->get_size() / 2;                    \
+	real_t still_body_position = still_body->get_global_position();            \
+	real_t still_body_extents = still_body->get_global_size() / 2;             \
 	real_t still_body_left_extent = still_body_position - still_body_extents;  \
 	real_t still_body_right_extent = still_body_position + still_body_extents; \
 	if (left_extent < still_body_right_extent && still_body_left_extent < right_extent)
@@ -34,19 +34,26 @@ void PhysicsServer1D::unregister_static_body(Set<StaticBody1D *>::Element *p_bod
 }
 
 real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p_movement) {
-	real_t body_position = p_body->get_position();
-	real_t body_extents = p_body->get_size() / 2;
+	real_t body_position = p_body->get_global_position();
+	real_t body_extents = p_body->get_global_size() / 2;
 	real_t start_left_extent = body_position - body_extents;
 	real_t start_right_extent = body_position + body_extents;
 	real_t left_extent = start_left_extent;
 	real_t right_extent = start_right_extent;
-	if (p_movement < 0) {
-		left_extent += p_movement;
+	real_t p_global_movement = p_movement;
+	{
+		Node1D *node_1d_parent = Object::cast_to<Node1D>(p_body->get_parent());
+		if (node_1d_parent) {
+			p_global_movement *= node_1d_parent->get_global_scale();
+		}
+	}
+	if (p_global_movement < 0) {
+		left_extent += p_global_movement;
 	} else {
-		right_extent += p_movement;
+		right_extent += p_global_movement;
 	}
 	// Start by assuming we can move the whole way.
-	real_t new_body_position = body_position + p_movement;
+	real_t new_body_position = body_position + p_global_movement;
 
 	// Detect collisions with StaticBody1D nodes and push our movement back.
 	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
@@ -87,7 +94,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 		}
 	}
 	// Now that we are done with everything we can collide with, set the new position.
-	p_body->set_position(new_body_position);
+	p_body->set_global_position(new_body_position);
 
 	// Check overlapping areas. This is only for detection and not for collision.
 	real_t end_left_extent = new_body_position - body_extents;
@@ -124,20 +131,27 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 }
 
 void PhysicsServer1D::move_area(Area1D *p_area, const real_t p_movement) {
-	real_t area_position = p_area->get_position();
-	real_t area_extents = p_area->get_size() / 2;
+	real_t area_position = p_area->get_global_position();
+	real_t area_extents = p_area->get_global_size() / 2;
 	real_t start_left_extent = area_position - area_extents;
 	real_t start_right_extent = area_position + area_extents;
 	real_t left_extent = start_left_extent;
 	real_t right_extent = start_right_extent;
-	if (p_movement < 0) {
-		left_extent += p_movement;
-	} else {
-		right_extent += p_movement;
+	real_t p_global_movement = p_movement;
+	{
+		Node1D *node_1d_parent = Object::cast_to<Node1D>(p_area->get_parent());
+		if (node_1d_parent) {
+			p_global_movement *= node_1d_parent->get_global_scale();
+		}
 	}
-	// Start by assuming we can move the whole way.
-	real_t new_body_position = area_position + p_movement;
-	p_area->set_position(new_body_position);
+	if (p_global_movement < 0) {
+		left_extent += p_global_movement;
+	} else {
+		right_extent += p_global_movement;
+	}
+	// Areas do n ot collide so they can always move the whole way.
+	real_t new_body_position = area_position + p_global_movement;
+	p_area->set_global_position(new_body_position);
 	real_t end_left_extent = new_body_position - area_extents;
 	real_t end_right_extent = new_body_position + area_extents;
 
@@ -206,8 +220,8 @@ void PhysicsServer1D::move_area(Area1D *p_area, const real_t p_movement) {
 }
 
 Array PhysicsServer1D::get_overlapping_areas(const Area1D *p_area) const {
-	real_t area_position = p_area->get_position();
-	real_t area_extents = p_area->get_size() / 2;
+	real_t area_position = p_area->get_global_position();
+	real_t area_extents = p_area->get_global_size() / 2;
 	real_t left_extent = area_position - area_extents;
 	real_t right_extent = area_position + area_extents;
 	Array ret;
@@ -225,8 +239,8 @@ Array PhysicsServer1D::get_overlapping_areas(const Area1D *p_area) const {
 }
 
 Array PhysicsServer1D::get_overlapping_bodies(const Area1D *p_area) const {
-	real_t area_position = p_area->get_position();
-	real_t area_extents = p_area->get_size() / 2;
+	real_t area_position = p_area->get_global_position();
+	real_t area_extents = p_area->get_global_size() / 2;
 	real_t left_extent = area_position - area_extents;
 	real_t right_extent = area_position + area_extents;
 	Array ret;

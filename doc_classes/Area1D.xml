@@ -12,13 +12,13 @@
 		<method name="get_overlapping_areas" qualifiers="const">
 			<return type="Array" />
 			<description>
-				Returns a list of intersecting [Area1D]s.
+				Returns an [Array] of intersecting [Area1D] nodes. If there are none, the array will be empty.
 			</description>
 		</method>
 		<method name="get_overlapping_bodies" qualifiers="const">
 			<return type="Array" />
 			<description>
-				Returns a list of intersecting [CollisionObject1D]s.
+				Returns an [Array] of intersecting [CollisionObject1D] nodes. If there are none, the array will be empty.
 			</description>
 		</method>
 		<method name="move">

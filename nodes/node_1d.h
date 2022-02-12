@@ -43,6 +43,11 @@ public:
 	void translate(const real_t p_amount);
 	void apply_scale(const real_t p_amount);
 
+	real_t get_global_position() const;
+	real_t get_global_scale() const;
+	void set_global_position(const real_t p_global_position);
+	void set_global_scale(const real_t p_global_scale);
+
 	void set_z_index(const int p_z);
 	int get_z_index() const;
 	void set_z_as_relative(const bool p_enabled);

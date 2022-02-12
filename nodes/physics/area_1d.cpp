@@ -31,13 +31,13 @@ bool Area1D::overlaps_area(const Area1D *p_area) const {
 }
 
 bool Area1D::overlaps_body(const CollisionObject1D *p_body) const {
-	real_t area_position = get_position();
-	real_t area_extents = get_size() / 2;
+	real_t area_position = get_global_position();
+	real_t area_extents = get_global_size() / 2;
 	real_t left_extent = area_position - area_extents;
 	real_t right_extent = area_position + area_extents;
 
-	real_t body_position = p_body->get_position();
-	real_t body_extents = p_body->get_size() / 2;
+	real_t body_position = p_body->get_global_position();
+	real_t body_extents = p_body->get_global_size() / 2;
 	real_t body_left_extent = body_position - body_extents;
 	real_t body_right_extent = body_position + body_extents;
 
