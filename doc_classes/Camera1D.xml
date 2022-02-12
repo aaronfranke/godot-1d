@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Camera1D" inherits="Node1D" version="4.0">
+	<brief_description>
+		A 1D camera node.
+	</brief_description>
+	<description>
+		Camera node for 1D scenes. It forces the screen to scroll following this node. This node uses Camera2D under the hood to do the heavy lifting.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="thickness" type="float" setter="set_thickness" getter="get_thickness" default="10.0">
+			The thickness of the 1D scene in pixels. In reality 1D scenes have no thickness, but then they would not be visible, so having a thickness is required.
+		</member>
+	</members>
+</class>
