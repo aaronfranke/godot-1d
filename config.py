@@ -8,6 +8,8 @@ def configure(env):
 
 def get_doc_classes():
     return [
+        "AudioListener1D",
+        "AudioPlayer1D",
         "Camera1D",
         "Node1D",
         "Sprite1D",

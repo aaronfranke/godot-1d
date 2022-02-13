@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="AudioListener1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+	<brief_description>
+		Overrides the location sounds are heard from in 1D.
+	</brief_description>
+	<description>
+		Once added to the scene tree, this node will override the location sounds are heard from.
+		Only one [AudioListener1D] can be current. Setting [member current] to [code]true[/code] will disable the previous [AudioListener1D] (and disable any [AudioListener2D] nodes).
+		This node will attempt to automatically set itself as current, but if there are multiple you will need to explicitly set one as current.
+		If there is no active [AudioListener1D] in the current [Viewport], the center of the screen will be used as a hearing point for the audio. [AudioListener1D] needs to be inside the [SceneTree] to function.
+	</description>
+	<tutorials>
+	</tutorials>
+	<members>
+		<member name="current" type="bool" setter="set_current" getter="is_current" default="true">
+			If [code]true[/code], this [AudioListener1D] is the active audio listener.
+		</member>
+	</members>
+</class>

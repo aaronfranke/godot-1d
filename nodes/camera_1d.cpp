@@ -21,8 +21,8 @@ void Camera1D::_bind_methods() {
 
 Camera1D::Camera1D() {
 	_real_camera = memnew(Camera2D);
+	add_child(_real_camera);
 	_real_camera->set_position(Vector2(0.0, 0.5));
 	_real_camera->make_current();
-	add_child(_real_camera);
 	set_thickness(_thickness);
 }

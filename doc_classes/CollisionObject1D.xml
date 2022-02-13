@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="CollisionObject1D" inherits="Node1D" version="4.0">
+<class name="CollisionObject1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
 	<brief_description>
 		1D collision object base class (abstract, can't be instanced).
 	</brief_description>
