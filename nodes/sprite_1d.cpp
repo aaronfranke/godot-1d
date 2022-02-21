@@ -64,6 +64,7 @@ void Sprite1D::set_texture(const Ref<Texture2D> &p_texture) {
 	}
 
 	update();
+	_texture_changed();
 	emit_signal(SceneStringNames::get_singleton()->texture_changed);
 	item_rect_changed();
 }

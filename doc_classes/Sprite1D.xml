@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <class name="Sprite1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
 	<brief_description>
-		A 1D sprite node that displays an image in 1D.
+		A 1D sprite node that displays an image in 1D, one row of pixels at a time. Each row is a frame.
 	</brief_description>
 	<description>
 		A node that displays a 1D texture. An un-animated 1D texture is an image with a height of 1 pixel.
