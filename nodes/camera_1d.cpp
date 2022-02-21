@@ -16,7 +16,7 @@ void Camera1D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_thickness", "thickness"), &Camera1D::set_thickness);
 	ClassDB::bind_method(D_METHOD("get_thickness"), &Camera1D::get_thickness);
 
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "thickness"), "set_thickness", "get_thickness");
+	ADD_PROPERTY(PropertyInfo(Variant::REAL, "thickness"), "set_thickness", "get_thickness");
 }
 
 Camera1D::Camera1D() {

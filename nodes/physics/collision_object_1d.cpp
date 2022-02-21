@@ -21,5 +21,5 @@ void CollisionObject1D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_size", "size"), &CollisionObject1D::set_size);
 	ClassDB::bind_method(D_METHOD("get_size"), &CollisionObject1D::get_size);
 
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "size"), "set_size", "get_size");
+	ADD_PROPERTY(PropertyInfo(Variant::REAL, "size"), "set_size", "get_size");
 }

@@ -18,8 +18,8 @@ public:
 	Array get_overlapping_areas() const;
 	Array get_overlapping_bodies() const;
 
-	bool overlaps_area(const Area1D *p_area) const;
-	bool overlaps_body(const CollisionObject1D *p_body) const;
+	bool overlaps_area(const Node *p_area) const;
+	bool overlaps_body(const Node *p_body) const;
 };
 
 #endif // AREA_1D_H

@@ -1,6 +1,6 @@
 #include "audio_listener_1d.h"
 
-#include "scene/2d/audio_listener_2d.h"
+#include "scene/2d/listener_2d.h"
 
 void AudioListener1D::set_current(const bool p_current) {
 	if (p_current) {
@@ -22,7 +22,7 @@ void AudioListener1D::_bind_methods() {
 }
 
 AudioListener1D::AudioListener1D() {
-	_real_listener = memnew(AudioListener2D);
+	_real_listener = memnew(Listener2D);
 	add_child(_real_listener);
 	_real_listener->make_current();
 }

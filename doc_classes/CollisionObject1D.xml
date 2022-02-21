@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="CollisionObject1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+<class name="CollisionObject1D" inherits="Node1D" version="3.5">
 	<brief_description>
 		1D collision object base class (abstract, can't be instanced).
 	</brief_description>
@@ -9,9 +9,13 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+	</methods>
 	<members>
 		<member name="size" type="float" setter="set_size" getter="get_size" default="64.0">
 			The size of the line segment of this object.
 		</member>
 	</members>
+	<constants>
+	</constants>
 </class>

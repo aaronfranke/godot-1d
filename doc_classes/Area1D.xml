@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="Area1D" inherits="CollisionObject1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+<class name="Area1D" inherits="CollisionObject1D" version="3.5">
 	<brief_description>
 		1D area for physics detection.
 	</brief_description>
@@ -30,14 +30,14 @@
 		</method>
 		<method name="overlaps_area" qualifiers="const">
 			<return type="bool" />
-			<argument index="0" name="area" type="Area1D" />
+			<argument index="0" name="area" type="Node" />
 			<description>
 				Returns whether or not these two [Area1D] nodes overlap.
 			</description>
 		</method>
 		<method name="overlaps_body" qualifiers="const">
 			<return type="bool" />
-			<argument index="0" name="body" type="CollisionObject1D" />
+			<argument index="0" name="body" type="Node" />
 			<description>
 				Returns whether or not this [Area1D] overlaps the given [CollisionObject1D].
 			</description>
@@ -69,4 +69,6 @@
 			</description>
 		</signal>
 	</signals>
+	<constants>
+	</constants>
 </class>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="StaticBody1D" inherits="CollisionObject1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+<class name="StaticBody1D" inherits="CollisionObject1D" version="3.5">
 	<brief_description>
 		1D physics body which is static and does not move.
 	</brief_description>
@@ -8,4 +8,8 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+	</methods>
+	<constants>
+	</constants>
 </class>

@@ -26,18 +26,20 @@ Array Area1D::get_overlapping_bodies() const {
 	return PhysicsServer1D::get_singleton()->get_overlapping_bodies(this);
 }
 
-bool Area1D::overlaps_area(const Area1D *p_area) const {
+bool Area1D::overlaps_area(const Node *p_area) const {
 	return overlaps_body(p_area);
 }
 
-bool Area1D::overlaps_body(const CollisionObject1D *p_body) const {
+bool Area1D::overlaps_body(const Node *p_body) const {
+	const CollisionObject1D *body = Object::cast_to<CollisionObject1D>(p_body);
+	ERR_FAIL_COND_V_MSG(!body, false, "The given body is not a CollisionObject1D.");
 	real_t area_position = get_global_position();
 	real_t area_extents = get_global_size() / 2;
 	real_t left_extent = area_position - area_extents;
 	real_t right_extent = area_position + area_extents;
 
-	real_t body_position = p_body->get_global_position();
-	real_t body_extents = p_body->get_global_size() / 2;
+	real_t body_position = body->get_global_position();
+	real_t body_extents = body->get_global_size() / 2;
 	real_t body_left_extent = body_position - body_extents;
 	real_t body_right_extent = body_position + body_extents;
 
@@ -54,30 +56,30 @@ void Area1D::_bind_methods() {
 	PropertyInfo body_arg;
 	body_arg.type = Variant::OBJECT;
 	body_arg.name = "body";
-	body_arg.class_name = SNAME("CollisionObject1D");
+	body_arg.class_name = StringName("CollisionObject1D");
 
 	MethodInfo body_entered_methodinfo;
 	body_entered_methodinfo.name = SceneStringNames::get_singleton()->body_exited;
 	body_entered_methodinfo.arguments.push_back(body_arg);
-	ClassDB::add_signal(SNAME("Area1D"), body_entered_methodinfo);
+	ClassDB::add_signal(StringName("Area1D"), body_entered_methodinfo);
 
 	MethodInfo body_exited_methodinfo;
 	body_exited_methodinfo.name = SceneStringNames::get_singleton()->body_entered;
 	body_exited_methodinfo.arguments.push_back(body_arg);
-	ClassDB::add_signal(SNAME("Area1D"), body_exited_methodinfo);
+	ClassDB::add_signal(StringName("Area1D"), body_exited_methodinfo);
 
 	PropertyInfo area_arg;
 	area_arg.type = Variant::OBJECT;
 	area_arg.name = "area";
-	area_arg.class_name = SNAME("Area1D");
+	area_arg.class_name = StringName("Area1D");
 
 	MethodInfo area_entered_methodinfo;
 	area_entered_methodinfo.name = SceneStringNames::get_singleton()->area_exited;
 	area_entered_methodinfo.arguments.push_back(area_arg);
-	ClassDB::add_signal(SNAME("Area1D"), area_entered_methodinfo);
+	ClassDB::add_signal(StringName("Area1D"), area_entered_methodinfo);
 
 	MethodInfo area_exited_methodinfo;
 	area_exited_methodinfo.name = SceneStringNames::get_singleton()->area_entered;
 	area_exited_methodinfo.arguments.push_back(area_arg);
-	ClassDB::add_signal(SNAME("Area1D"), area_exited_methodinfo);
+	ClassDB::add_signal(StringName("Area1D"), area_exited_methodinfo);
 }

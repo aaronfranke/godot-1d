@@ -4,7 +4,7 @@
 #include "../node_1d.h"
 
 // All derivatives of CollisionObject1D need Set.
-#include "core/templates/set.h"
+#include "core/set.h"
 
 class CollisionObject1D : public Node1D {
 	GDCLASS(CollisionObject1D, Node1D);

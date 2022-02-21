@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="Sprite1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+<class name="Sprite1D" inherits="Node1D" version="3.5">
 	<brief_description>
 		A 1D sprite node that displays an image in 1D, one row of pixels at a time. Each row is a frame.
 	</brief_description>
@@ -27,10 +27,9 @@
 		<member name="frame" type="int" setter="set_frame" getter="get_frame" default="0">
 			The current frame of the [Sprite1D]. Each row of pixels is a 1D frame.
 		</member>
-		<member name="texture" type="Texture2D" setter="set_texture" getter="get_texture">
+		<member name="texture" type="Texture" setter="set_texture" getter="get_texture">
 			The texture of the [Sprite1D]. Only one row of pixels will be displayed at a time. If the texture has multiple rows of pixels (height greater than 1), each is a 1D frame.
 		</member>
-		<member name="texture_filter" type="int" setter="set_texture_filter" getter="get_texture_filter" overrides="CanvasItem" enum="CanvasItem.TextureFilter" default="1" />
 	</members>
 	<signals>
 		<signal name="frame_changed">
@@ -44,4 +43,6 @@
 			</description>
 		</signal>
 	</signals>
+	<constants>
+	</constants>
 </class>

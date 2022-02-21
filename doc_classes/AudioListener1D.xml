@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="AudioListener1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+<class name="AudioListener1D" inherits="Node1D" version="3.5">
 	<brief_description>
 		Overrides the location sounds are heard from in 1D.
 	</brief_description>
@@ -11,9 +11,13 @@
 	</description>
 	<tutorials>
 	</tutorials>
+	<methods>
+	</methods>
 	<members>
 		<member name="current" type="bool" setter="set_current" getter="is_current" default="true">
 			If [code]true[/code], this [AudioListener1D] is the active audio listener.
 		</member>
 	</members>
+	<constants>
+	</constants>
 </class>

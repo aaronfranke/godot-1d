@@ -1,6 +1,7 @@
 #include "sprite_1d.h"
 
 #include "core/core_string_names.h"
+#include "core/engine.h"
 #include "scene/main/viewport.h"
 #include "scene/scene_string_names.h"
 
@@ -22,7 +23,7 @@ void Sprite1D::_get_rects(Rect2 &r_src_rect, Rect2 &r_dst_rect) const {
 	int size = _texture->get_width();
 
 	real_t dest_offset = -size / 2;
-	if (get_viewport() && get_viewport()->is_snap_2d_transforms_to_pixel_enabled()) {
+	if (Engine::get_singleton()->get_use_gpu_pixel_snap()) {
 		dest_offset = Math::floor(dest_offset);
 	}
 
@@ -42,34 +43,34 @@ void Sprite1D::_notification(const int p_what) {
 			Rect2 src_rect, dst_rect;
 			_get_rects(src_rect, dst_rect);
 
-			_texture->draw_rect_region(ci, dst_rect, src_rect, Color(1, 1, 1), false, false);
+			_texture->draw_rect_region(ci, dst_rect, src_rect, Color(1, 1, 1));
 		} break;
 	}
 }
 
-void Sprite1D::set_texture(const Ref<Texture2D> &p_texture) {
+void Sprite1D::set_texture(const Ref<Texture> &p_texture) {
 	if (p_texture == _texture) {
 		return;
 	}
 
 	if (_texture.is_valid()) {
-		_texture->disconnect(CoreStringNames::get_singleton()->changed, callable_mp(this, &Sprite1D::_texture_changed));
+		_texture->disconnect(CoreStringNames::get_singleton()->changed, this, "_texture_changed");
 	}
 
 	_texture = p_texture;
 
 	if (_texture.is_valid()) {
-		_texture->connect(CoreStringNames::get_singleton()->changed, callable_mp(this, &Sprite1D::_texture_changed));
-		_frame_count = _texture->get_height();
+		_texture->connect(CoreStringNames::get_singleton()->changed, this, "_texture_changed");
 	}
 
 	update();
 	_texture_changed();
-	emit_signal(SceneStringNames::get_singleton()->texture_changed);
+	emit_signal("texture_changed");
 	item_rect_changed();
+	_change_notify("texture");
 }
 
-Ref<Texture2D> Sprite1D::get_texture() const {
+Ref<Texture> Sprite1D::get_texture() const {
 	return _texture;
 }
 
@@ -101,7 +102,7 @@ Rect2 Sprite1D::get_rect() const {
 	int size = _texture->get_width();
 
 	real_t dest_offset = -size / 2;
-	if (get_viewport() && get_viewport()->is_snap_2d_transforms_to_pixel_enabled()) {
+	if (Engine::get_singleton()->get_use_gpu_pixel_snap()) {
 		dest_offset = Math::floor(dest_offset);
 	}
 
@@ -126,7 +127,6 @@ void Sprite1D::_texture_changed() {
 }
 
 Sprite1D::Sprite1D() {
-	set_texture_filter(TextureFilter::TEXTURE_FILTER_NEAREST);
 }
 
 void Sprite1D::_bind_methods() {
@@ -142,6 +142,6 @@ void Sprite1D::_bind_methods() {
 	ADD_SIGNAL(MethodInfo("frame_changed"));
 	ADD_SIGNAL(MethodInfo("texture_changed"));
 
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "texture", PROPERTY_HINT_RESOURCE_TYPE, "Texture2D"), "set_texture", "get_texture");
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "texture", PROPERTY_HINT_RESOURCE_TYPE, "Texture"), "set_texture", "get_texture");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "frame"), "set_frame", "get_frame");
 }
