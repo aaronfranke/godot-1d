@@ -17,7 +17,7 @@ void register_1d_types() {
 	ClassDB::register_class<Sprite1D>();
 
 	// Physics.
-	ClassDB::register_virtual_class<CollisionObject1D>();
+	ClassDB::register_abstract_class<CollisionObject1D>();
 	ClassDB::register_class<Area1D>();
 	ClassDB::register_class<KinematicBody1D>();
 	ClassDB::register_class<StaticBody1D>();
