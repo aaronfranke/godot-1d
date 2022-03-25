@@ -5,7 +5,7 @@
 void Camera1D::set_thickness(const real_t p_thickness) {
 	ERR_FAIL_COND_MSG(p_thickness < CMP_EPSILON, "Thickness must be greater than zero.");
 	_thickness = p_thickness;
-	_real_camera->set_zoom(Vector2(1.0, 1.0 / _thickness));
+	_real_camera->set_zoom(Vector2(1.0, _thickness));
 }
 
 real_t Camera1D::get_thickness() const {
