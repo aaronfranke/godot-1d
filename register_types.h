@@ -1,7 +1,9 @@
 #ifndef REGISTER_1D_TYPES_H
 #define REGISTER_1D_TYPES_H
 
-void register_1d_types();
-void unregister_1d_types();
+#include "modules/register_module_types.h"
+
+void initialize_1d_module(ModuleInitializationLevel p_level);
+void uninitialize_1d_module(ModuleInitializationLevel p_level);
 
 #endif // REGISTER_1D_TYPES_H

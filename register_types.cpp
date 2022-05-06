@@ -9,7 +9,10 @@
 #include "nodes/physics/static_body_1d.h"
 #include "nodes/sprite_1d.h"
 
-void register_1d_types() {
+void initialize_1d_module(ModuleInitializationLevel p_level) {
+	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
+		return;
+	}
 	ClassDB::register_class<AudioListener1D>();
 	ClassDB::register_class<AudioPlayer1D>();
 	ClassDB::register_class<Camera1D>();
@@ -24,4 +27,4 @@ void register_1d_types() {
 	PhysicsServer1D::get_singleton();
 }
 
-void unregister_1d_types() {}
+void uninitialize_1d_module(ModuleInitializationLevel p_level) {}
