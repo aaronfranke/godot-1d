@@ -6,8 +6,6 @@
 class KinematicBody1D : public CollisionObject1D {
 	GDCLASS(KinematicBody1D, CollisionObject1D);
 
-	Set<KinematicBody1D *>::Element *_server_element;
-
 protected:
 	void _notification(const int p_what);
 	static void _bind_methods();

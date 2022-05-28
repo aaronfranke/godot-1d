@@ -6,8 +6,6 @@
 class StaticBody1D : public CollisionObject1D {
 	GDCLASS(StaticBody1D, CollisionObject1D);
 
-	Set<StaticBody1D *>::Element *_server_element;
-
 protected:
 	void _notification(const int p_what);
 };

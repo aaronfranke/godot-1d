@@ -4,12 +4,12 @@
 #include "../node_1d.h"
 
 // All derivatives of CollisionObject1D need Set.
-#include "core/templates/set.h"
+#include "core/templates/hash_set.h"
 
 class CollisionObject1D : public Node1D {
 	GDCLASS(CollisionObject1D, Node1D);
 
-	// Unlike 2D and 3D, there is no point to collision SHAPES.
+	// Unlike 2D and 3D, there is no purpose to collision SHAPES.
 	// In 1D, the only available geometric shape is a line segment.
 	// It only has a size. We interpret the node's position as the center.
 	real_t _size = 64;

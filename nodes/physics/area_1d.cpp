@@ -6,10 +6,10 @@
 void Area1D::_notification(const int p_what) {
 	switch (p_what) {
 		case NOTIFICATION_ENTER_TREE: {
-			_server_element = PhysicsServer1D::get_singleton()->register_area(this);
+			PhysicsServer1D::get_singleton()->register_area(this);
 		} break;
 		case NOTIFICATION_EXIT_TREE: {
-			PhysicsServer1D::get_singleton()->unregister_area(_server_element);
+			PhysicsServer1D::get_singleton()->unregister_area(this);
 		} break;
 	}
 }

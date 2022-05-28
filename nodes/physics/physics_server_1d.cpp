@@ -9,27 +9,27 @@
 	real_t still_body_right_extent = still_body_position + still_body_extents; \
 	if (left_extent < still_body_right_extent && still_body_left_extent < right_extent)
 
-Set<Area1D *>::Element *PhysicsServer1D::register_area(Area1D *p_area) {
-	return _areas.insert(p_area);
+void PhysicsServer1D::register_area(Area1D *p_area) {
+	_areas.insert(p_area);
 }
 
-Set<KinematicBody1D *>::Element *PhysicsServer1D::register_kinematic_body(KinematicBody1D *p_body) {
-	return _kinematic_bodies.insert(p_body);
+void PhysicsServer1D::register_kinematic_body(KinematicBody1D *p_body) {
+	_kinematic_bodies.insert(p_body);
 }
 
-Set<StaticBody1D *>::Element *PhysicsServer1D::register_static_body(StaticBody1D *p_body) {
-	return _static_bodies.insert(p_body);
+void PhysicsServer1D::register_static_body(StaticBody1D *p_body) {
+	_static_bodies.insert(p_body);
 }
 
-void PhysicsServer1D::unregister_area(Set<Area1D *>::Element *p_area) {
+void PhysicsServer1D::unregister_area(Area1D *p_area) {
 	_areas.erase(p_area);
 }
 
-void PhysicsServer1D::unregister_kinematic_body(Set<KinematicBody1D *>::Element *p_body) {
+void PhysicsServer1D::unregister_kinematic_body(KinematicBody1D *p_body) {
 	_kinematic_bodies.erase(p_body);
 }
 
-void PhysicsServer1D::unregister_static_body(Set<StaticBody1D *>::Element *p_body) {
+void PhysicsServer1D::unregister_static_body(StaticBody1D *p_body) {
 	_static_bodies.erase(p_body);
 }
 
@@ -56,8 +56,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 	real_t new_body_position = body_position + p_global_movement;
 
 	// Detect collisions with StaticBody1D nodes and push our movement back.
-	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
-		StaticBody1D *still_body = E->get();
+	for (StaticBody1D *still_body : _static_bodies) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			if (body_position < still_body_position) {
 				real_t farthest_possible_position = still_body_left_extent - body_extents;
@@ -73,8 +72,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 		}
 	}
 	// Detect collisions with KinematicBody1D nodes and push our movement back.
-	for (Set<KinematicBody1D *>::Element *E = _kinematic_bodies.front(); E; E = E->next()) {
-		KinematicBody1D *still_body = E->get();
+	for (KinematicBody1D *still_body : _kinematic_bodies) {
 		if (still_body == p_body) {
 			// We don't want to collide with ourself!
 			continue;
@@ -99,8 +97,7 @@ real_t PhysicsServer1D::move_and_collide(KinematicBody1D *p_body, const real_t p
 	// Check overlapping areas. This is only for detection and not for collision.
 	real_t end_left_extent = new_body_position - body_extents;
 	real_t end_right_extent = new_body_position + body_extents;
-	for (Set<Area1D *>::Element *E = _areas.front(); E; E = E->next()) {
-		Area1D *still_body = E->get();
+	for (Area1D *still_body : _areas) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
 			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
@@ -156,8 +153,7 @@ void PhysicsServer1D::move_area(Area1D *p_area, const real_t p_movement) {
 	real_t end_right_extent = new_body_position + area_extents;
 
 	// Detect intersections with StaticBody1D nodes.
-	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
-		StaticBody1D *still_body = E->get();
+	for (StaticBody1D *still_body : _static_bodies) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
 			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
@@ -175,8 +171,7 @@ void PhysicsServer1D::move_area(Area1D *p_area, const real_t p_movement) {
 		}
 	}
 	// Detect intersections with KinematicBody1D nodes.
-	for (Set<KinematicBody1D *>::Element *E = _kinematic_bodies.front(); E; E = E->next()) {
-		KinematicBody1D *still_body = E->get();
+	for (KinematicBody1D *still_body : _kinematic_bodies) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
 			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
@@ -194,8 +189,7 @@ void PhysicsServer1D::move_area(Area1D *p_area, const real_t p_movement) {
 		}
 	}
 	// Detect intersections with Area1D nodes.
-	for (Set<Area1D *>::Element *E = _areas.front(); E; E = E->next()) {
-		Area1D *still_body = E->get();
+	for (Area1D *still_body : _areas) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			bool start_overlaps = start_left_extent < still_body_right_extent && still_body_left_extent < start_right_extent;
 			bool end_overlaps = end_left_extent < still_body_right_extent && still_body_left_extent < end_right_extent;
@@ -225,8 +219,7 @@ Array PhysicsServer1D::get_overlapping_areas(const Area1D *p_area) const {
 	real_t left_extent = area_position - area_extents;
 	real_t right_extent = area_position + area_extents;
 	Array ret;
-	for (Set<Area1D *>::Element *E = _areas.front(); E; E = E->next()) {
-		Area1D *still_body = E->get();
+	for (Area1D *still_body : _areas) {
 		if (still_body == p_area) {
 			// We don't want to overlap with ourself!
 			continue;
@@ -244,14 +237,12 @@ Array PhysicsServer1D::get_overlapping_bodies(const Area1D *p_area) const {
 	real_t left_extent = area_position - area_extents;
 	real_t right_extent = area_position + area_extents;
 	Array ret;
-	for (Set<StaticBody1D *>::Element *E = _static_bodies.front(); E; E = E->next()) {
-		StaticBody1D *still_body = E->get();
+	for (StaticBody1D *still_body : _static_bodies) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			ret.push_back(still_body);
 		}
 	}
-	for (Set<KinematicBody1D *>::Element *E = _kinematic_bodies.front(); E; E = E->next()) {
-		KinematicBody1D *still_body = E->get();
+	for (KinematicBody1D *still_body : _kinematic_bodies) {
 		IF_MOVEMENT_OVERLAPS_STILL_BODY {
 			ret.push_back(still_body);
 		}
