@@ -46,6 +46,13 @@ Cyan to fit with the existing color pattern: Red is 3D,
 Blue is 2D, so if we continue subtracting hue we get to Cyan.
 If Node4D ever exists, it would make sense to color it Yellow.
 
+## Games using this 1D module
+
+* Aaron's Lovely Morning by Moowool
+  - Has 2D visuals, but all game logic is 1D.
+  - Itch page: https://moowool.itch.io/aarons-lovely-morning (Windows, Mac, Linux, Web)
+  - Source code: https://git.moowool.info/moowool/aarons-lovely-morning (GPLv3)
+
 ## Why?
 
 You might be wondering, why? Why spend time making 1D
