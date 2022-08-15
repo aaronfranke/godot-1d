@@ -33,7 +33,7 @@ void AudioPlayer1D::_notification(const int p_what) {
 
 			if (_setplay.get() >= 0 && _stream.is_valid()) {
 				_active.set();
-				Ref<AudioStreamPlayback> new_playback = _stream->instance_playback();
+				Ref<AudioStreamPlayback> new_playback = _stream->instantiate_playback();
 				ERR_FAIL_COND_MSG(new_playback.is_null(), "Failed to instantiate playback.");
 				AudioServer::get_singleton()->start_playback_stream(new_playback, _get_actual_bus(), _volume_vector, _setplay.get(), _pitch_scale);
 				_stream_playbacks.push_back(new_playback);

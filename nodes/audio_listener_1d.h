@@ -7,8 +7,9 @@ class AudioListener2D;
 class AudioListener1D : public Node1D {
 	GDCLASS(AudioListener1D, Node1D);
 
-	// Viewport is hard-coded to work with Listener2D (and Listener1D). We'll just
-	// use Listener2D as a proxy so that we don't have to modify Viewport.
+	// Viewport is hard-coded to work with AudioListener2D (and
+	// AudioListener3D). We'll just use AudioListener2D as a
+	// proxy so that we don't have to modify Viewport.
 	AudioListener2D *_real_listener;
 
 protected:
