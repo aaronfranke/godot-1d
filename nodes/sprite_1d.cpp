@@ -63,7 +63,7 @@ void Sprite1D::set_texture(const Ref<Texture2D> &p_texture) {
 		_frame_count = _texture->get_height();
 	}
 
-	update();
+	queue_redraw();
 	_texture_changed();
 	emit_signal(SceneStringNames::get_singleton()->texture_changed);
 	item_rect_changed();
@@ -121,7 +121,7 @@ void Sprite1D::_texture_changed() {
 	// the editor redraw the sprite with the updated texture.
 	if (_texture.is_valid()) {
 		_frame_count = _texture->get_height();
-		update();
+		queue_redraw();
 	}
 }
 

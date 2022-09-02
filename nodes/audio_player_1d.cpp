@@ -108,7 +108,7 @@ void AudioPlayer1D::_update_panning() {
 			real_t pseudo_sigmoid = audio_position / (balance_distance + audio_distance);
 			real_t pan = pseudo_sigmoid * 0.5f + 0.5f;
 			real_t multiplier = Math::pow(1.0f - audio_distance / _max_distance, _attenuation);
-			multiplier *= Math::db2linear(_volume_db);
+			multiplier *= Math::db_to_linear(_volume_db);
 			_volume_vector.write[0] = AudioFrame(1.0f - pan, pan) * multiplier;
 		}
 	}

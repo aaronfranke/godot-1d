@@ -39,7 +39,7 @@ private:
 	real_t _attenuation = 2.0;
 
 protected:
-	void _validate_property(PropertyInfo &property) const override;
+	void _validate_property(PropertyInfo &property) const;
 	void _notification(const int p_what);
 	static void _bind_methods();
 
