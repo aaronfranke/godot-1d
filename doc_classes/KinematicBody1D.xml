@@ -11,7 +11,7 @@
 	<methods>
 		<method name="move_and_collide">
 			<return type="float" />
-			<argument index="0" name="movement" type="float" />
+			<param index="0" name="movement" type="float" />
 			<description>
 				Move the body by the given amount and collide with any [StaticBody1D] or [KinematicBody1D] nodes in the way.
 				The return value is the remainder of the movement after the collision. If the movement did not cause a collision, the return value is [code]0.0[/code].

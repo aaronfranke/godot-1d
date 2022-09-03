@@ -11,14 +11,14 @@
 	<methods>
 		<method name="apply_scale">
 			<return type="void" />
-			<argument index="0" name="ratio" type="float" />
+			<param index="0" name="ratio" type="float" />
 			<description>
 				Multiplies the current scale by the [code]ratio[/code] value.
 			</description>
 		</method>
 		<method name="translate">
 			<return type="void" />
-			<argument index="0" name="offset" type="float" />
+			<param index="0" name="offset" type="float" />
 			<description>
 				Translates the node by the given [code]offset[/code] in local coordinates.
 			</description>
