@@ -53,6 +53,13 @@ If Node4D ever exists, it would make sense to color it Yellow.
   - Itch page: https://moowool.itch.io/aarons-lovely-morning (Windows, Mac, Linux, Web)
   - Source code: https://git.moowool.info/moowool/aarons-lovely-morning (GPLv3)
 
+## Branches
+
+* [`master`](https://github.com/aaronfranke/godot-1d)
+    branch for a module for Godot 4.x (compiles into the engine).
+* [`3.x`](https://github.com/aaronfranke/godot-1d/tree/3.x)
+    branch for a module for Godot 3.x (compiles into the engine).
+
 ## Why?
 
 You might be wondering, why? Why spend time making 1D
