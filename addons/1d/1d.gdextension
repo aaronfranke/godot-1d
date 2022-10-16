@@ -1,0 +1,16 @@
+[configuration]
+
+entry_symbol = "gdextension_init"
+
+[libraries]
+
+macos.debug = "bin/lib1d.macos.debug.framework"
+macos.release = "bin/lib1d.macos.release.framework"
+windows.debug.x86_64 = "bin/lib1d.windows.debug.x86_64.dll"
+windows.release.x86_64 = "bin/lib1d.windows.release.x86_64.dll"
+linux.debug.x86_64 = "bin/lib1d.linux.debug.x86_64.so"
+linux.release.x86_64 = "bin/lib1d.linux.release.x86_64.so"
+linux.debug.arm64 = "bin/lib1d.linux.debug.arm64.so"
+linux.release.arm64 = "bin/lib1d.linux.release.arm64.so"
+linux.debug.rv64 = "bin/lib1d.linux.debug.rv64.so"
+linux.release.rv64 = "bin/lib1d.linux.release.rv64.so"

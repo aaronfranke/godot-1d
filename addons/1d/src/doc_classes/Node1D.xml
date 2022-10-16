@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="Node1D" inherits="CanvasItem" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+	<brief_description>
+		A 1D game object, inherited by all 1D-related nodes. Has a position and scale,
+	</brief_description>
+	<description>
+		A 1D game object, with a position and scale. All 1D nodes, including physics objects and sprites, inherit from Node1D. Use Node1D as a parent node to move and scale children in a 1D project. The node's render order is determined by CanvasItem's Z index.
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="apply_scale">
+			<return type="void" />
+			<param index="0" name="ratio" type="float" />
+			<description>
+				Multiplies the current scale by the [code]ratio[/code] value.
+			</description>
+		</method>
+		<method name="translate">
+			<return type="void" />
+			<param index="0" name="offset" type="float" />
+			<description>
+				Translates the node by the given [code]offset[/code] in local coordinates.
+			</description>
+		</method>
+	</methods>
+	<members>
+		<member name="global_position" type="float" setter="set_global_position" getter="get_global_position">
+			The global position of this node. Prefer using [member position] instead if you don't specifically need global.
+		</member>
+		<member name="global_scale" type="float" setter="set_global_scale" getter="get_global_scale">
+			The global scale of this node. Prefer using [member scale] instead if you don't specifically need global.
+		</member>
+		<member name="position" type="float" setter="set_position" getter="get_position" default="0.0">
+			The position of this node, relative to the node's parent.
+		</member>
+		<member name="scale" type="float" setter="set_scale" getter="get_scale" default="1.0">
+			The scale of this node, relative to the node's parent. Unscaled value: [code]1.0[/code].
+		</member>
+	</members>
+</class>

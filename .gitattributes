@@ -1,5 +1,6 @@
-# Properly detect languages on Github
-*.h linguist-language=cpp
-
-# Normalize EOL for all files that Git considers text files
-* text=auto eol=lf
+# Ignore everything outside of the addons folder when exporting.
+/**               export-ignore
+/addons           !export-ignore
+/addons/**        !export-ignore
+/addons/1d/src    export-ignore
+/addons/1d/src/** export-ignore

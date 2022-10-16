@@ -1,0 +1,19 @@
+# Objects
+*.a
+*.o
+*.os
+
+# SConstruct
+*.pyc
+.sconf_temp
+.scons-cache/
+.scons_env.json
+.scons_node_count
+.sconsign*.dblite
+__pycache__/
+
+# MacOS
+.DS_Store
+
+# Editors
+.vscode/
