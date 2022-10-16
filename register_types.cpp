@@ -24,7 +24,12 @@ void initialize_1d_module(ModuleInitializationLevel p_level) {
 	ClassDB::register_class<Area1D>();
 	ClassDB::register_class<KinematicBody1D>();
 	ClassDB::register_class<StaticBody1D>();
-	PhysicsServer1D::get_singleton();
+	PhysicsServer1D::initialize_singleton();
 }
 
-void uninitialize_1d_module(ModuleInitializationLevel p_level) {}
+void uninitialize_1d_module(ModuleInitializationLevel p_level) {
+	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) {
+		return;
+	}
+	PhysicsServer1D::uninitialize_singleton();
+}
