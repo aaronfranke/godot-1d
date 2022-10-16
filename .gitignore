@@ -1,5 +1,6 @@
 # Godot auto generated files
 *.gen.*
+.godot/
 .import/
 
 # General C++ generated files
