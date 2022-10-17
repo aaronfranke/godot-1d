@@ -16,6 +16,8 @@ class PhysicsServer1D : public Object {
 
 public:
 	static PhysicsServer1D *get_singleton();
+	static void initialize_singleton();
+	static void uninitialize_singleton();
 
 	Set<Area1D *>::Element *register_area(Area1D *p_area);
 	Set<KinematicBody1D *>::Element *register_kinematic_body(KinematicBody1D *p_body);

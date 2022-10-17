@@ -261,9 +261,14 @@ Array PhysicsServer1D::get_overlapping_bodies(const Area1D *p_area) const {
 
 PhysicsServer1D *PhysicsServer1D::_singleton = nullptr;
 
+void PhysicsServer1D::initialize_singleton() {
+	_singleton = memnew(PhysicsServer1D);
+}
+
+void PhysicsServer1D::uninitialize_singleton() {
+	memdelete(_singleton);
+}
+
 PhysicsServer1D *PhysicsServer1D::get_singleton() {
-	if (!_singleton) {
-		_singleton = memnew(PhysicsServer1D);
-	}
 	return _singleton;
 }

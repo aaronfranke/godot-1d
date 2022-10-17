@@ -19,7 +19,9 @@ void register_1d_types() {
 	ClassDB::register_class<Area1D>();
 	ClassDB::register_class<KinematicBody1D>();
 	ClassDB::register_class<StaticBody1D>();
-	PhysicsServer1D::get_singleton();
+	PhysicsServer1D::initialize_singleton();
 }
 
-void unregister_1d_types() {}
+void unregister_1d_types() {
+	PhysicsServer1D::uninitialize_singleton();
+}
