@@ -51,7 +51,7 @@ If Node4D ever exists, it would make sense to color it Yellow.
 * Aaron's Lovely Morning by Moowool
   - Has 2D visuals, but all game logic is 1D.
   - Itch page: https://moowool.itch.io/aarons-lovely-morning (Windows, Mac, Linux, Web)
-  - Source code: https://git.moowool.info/moowool/aarons-lovely-morning (GPLv3)
+  - Source code: https://github.com/RolandMarchand/aarons-lovely-morning (GPLv3)
 
 ## Branches
 
