@@ -138,29 +138,6 @@ void Node1D::set_global_scale(const real_t p_global_scale) {
 	}
 }
 
-void Node1D::set_z_index(const int p_z) {
-	ERR_FAIL_COND(p_z < RS::CANVAS_ITEM_Z_MIN);
-	ERR_FAIL_COND(p_z > RS::CANVAS_ITEM_Z_MAX);
-	_z_index = p_z;
-	RS::get_singleton()->canvas_item_set_z_index(get_canvas_item(), _z_index);
-}
-
-void Node1D::set_z_as_relative(const bool p_enabled) {
-	if (_z_relative == p_enabled) {
-		return;
-	}
-	_z_relative = p_enabled;
-	RS::get_singleton()->canvas_item_set_z_as_relative_to_parent(get_canvas_item(), p_enabled);
-}
-
-bool Node1D::is_z_relative() const {
-	return _z_relative;
-}
-
-int Node1D::get_z_index() const {
-	return _z_index;
-}
-
 void Node1D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_position"), &Node1D::get_position);
 	ClassDB::bind_method(D_METHOD("get_scale"), &Node1D::get_scale);
@@ -174,17 +151,8 @@ void Node1D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_global_position", "global_position"), &Node1D::set_global_position);
 	ClassDB::bind_method(D_METHOD("set_global_scale", "global_scale"), &Node1D::set_global_scale);
 
-	ClassDB::bind_method(D_METHOD("set_z_index", "z_index"), &Node1D::set_z_index);
-	ClassDB::bind_method(D_METHOD("get_z_index"), &Node1D::get_z_index);
-	ClassDB::bind_method(D_METHOD("set_z_as_relative", "enable"), &Node1D::set_z_as_relative);
-	ClassDB::bind_method(D_METHOD("is_z_relative"), &Node1D::is_z_relative);
-
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "position", PROPERTY_HINT_RANGE, "-99999,99999,0.001,or_lesser,or_greater,noslider,suffix:px"), "set_position", "get_position");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "scale"), "set_scale", "get_scale");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "global_position", PROPERTY_HINT_RANGE, "-99999,99999,0.001,or_lesser,or_greater,noslider,suffix:px", PROPERTY_USAGE_NONE), "set_global_position", "get_global_position");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "global_scale", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_NONE), "set_global_scale", "get_global_scale");
-
-	ADD_GROUP("Ordering", "");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "z_index", PROPERTY_HINT_RANGE, itos(RS::CANVAS_ITEM_Z_MIN) + "," + itos(RS::CANVAS_ITEM_Z_MAX) + ",1"), "set_z_index", "get_z_index");
-	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "z_as_relative"), "set_z_as_relative", "is_z_relative");
 }
