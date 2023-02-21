@@ -23,6 +23,6 @@ Camera1D::Camera1D() {
 	_real_camera = memnew(Camera2D);
 	add_child(_real_camera);
 	_real_camera->set_position(Vector2(0.0, 0.5));
-	_real_camera->make_current();
+	_real_camera->set_enabled(true);
 	set_thickness(_thickness);
 }
