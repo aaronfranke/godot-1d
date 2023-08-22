@@ -11,6 +11,7 @@ class AudioListener1D : public Node1D {
 	// AudioListener3D). We'll just use AudioListener2D as a
 	// proxy so that we don't have to modify Viewport.
 	AudioListener2D *_real_listener;
+	bool _is_vertical = false;
 
 protected:
 	static void _bind_methods();
@@ -18,6 +19,9 @@ protected:
 public:
 	void set_current(const bool p_current);
 	bool is_current() const;
+
+	void set_is_vertical(const bool p_is_vertical);
+	bool get_is_vertical() const;
 
 	AudioListener1D();
 };

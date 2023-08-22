@@ -1,5 +1,8 @@
 #include "audio_player_1d.h"
 
+#include "audio_listener_1d.h"
+#include "camera_1d.h"
+
 #include "scene/2d/audio_listener_2d.h"
 #include "scene/2d/camera_2d.h"
 #include "scene/main/viewport.h"
@@ -74,14 +77,36 @@ StringName AudioPlayer1D::_get_actual_bus() const {
 	return _audio_bus;
 }
 
+const Node1D *_get_audio_listener_1d(const Viewport *p_viewport) {
+	const AudioListener2D *audio_listener_2d = p_viewport->get_audio_listener_2d();
+	if (audio_listener_2d) {
+		return Object::cast_to<const Node1D>(audio_listener_2d->get_parent());
+	}
+	const Camera2D *camera_2d = p_viewport->get_camera_2d();
+	if (camera_2d) {
+		return Object::cast_to<const Node1D>(camera_2d->get_parent());
+	}
+	return nullptr;
+}
+
+bool _is_audio_listener_vertical(const Node1D *p_listener_node_1d) {
+	const AudioListener1D *audio_listener_1d = Object::cast_to<const AudioListener1D>(p_listener_node_1d);
+	if (audio_listener_1d) {
+		return audio_listener_1d->get_is_vertical();
+	}
+	const Camera1D *camera_1d = Object::cast_to<const Camera1D>(p_listener_node_1d);
+	if (camera_1d) {
+		return camera_1d->get_is_vertical();
+	}
+	return false;
+}
+
 void AudioPlayer1D::_update_panning() {
 	if (!_active.is_set() || _stream.is_null()) {
 		return;
 	}
 
 	Viewport *viewport = get_viewport();
-
-	real_t audio_position = get_global_position();
 
 	if (viewport->is_audio_listener_2d()) {
 		real_t balance_distance = _balance_distance;
@@ -92,21 +117,22 @@ void AudioPlayer1D::_update_panning() {
 			balance_distance = CMP_EPSILON;
 		}
 
-		{
-			Node1D *listener_node1d;
-			AudioListener2D *audio_listener = viewport->get_audio_listener_2d();
-			if (audio_listener) {
-				listener_node1d = Object::cast_to<Node1D>(audio_listener->get_parent());
-			} else {
-				listener_node1d = Object::cast_to<Node1D>(viewport->get_camera_2d()->get_parent());
-			}
-			audio_position -= listener_node1d->get_global_position();
+		real_t audio_position = get_global_position();
+		bool is_vertical = false;
+
+		const Node1D *listener_node_1d = _get_audio_listener_1d(viewport);
+		if (listener_node_1d) {
+			audio_position -= listener_node_1d->get_global_position();
+			is_vertical = _is_audio_listener_vertical(listener_node_1d);
 		}
 
 		real_t audio_distance = Math::abs(audio_position);
 		if (audio_distance < _max_distance) {
-			real_t pseudo_sigmoid = audio_position / (balance_distance + audio_distance);
-			real_t pan = pseudo_sigmoid * 0.5f + 0.5f;
+			real_t pan = 0.5;
+			if (!is_vertical) {
+				real_t pseudo_sigmoid = audio_position / (balance_distance + audio_distance);
+				pan = pseudo_sigmoid * 0.5f + 0.5f;
+			}
 			real_t multiplier = Math::pow(1.0f - audio_distance / _max_distance, _attenuation);
 			multiplier *= Math::db_to_linear(_volume_db);
 			_volume_vector.write[0] = AudioFrame(1.0f - pan, pan) * multiplier;

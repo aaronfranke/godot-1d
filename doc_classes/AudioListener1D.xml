@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="AudioListener1D" inherits="Node1D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
+<class name="AudioListener1D" inherits="Node1D" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../doc/class.xsd">
 	<brief_description>
 		Overrides the location sounds are heard from in 1D.
 	</brief_description>
@@ -14,6 +14,9 @@
 	<members>
 		<member name="current" type="bool" setter="set_current" getter="is_current" default="true">
 			If [code]true[/code], this [AudioListener1D] is the active audio listener.
+		</member>
+		<member name="is_vertical" type="bool" setter="set_is_vertical" getter="get_is_vertical" default="false">
+			If true, the 1D world will no longer pan between the left and right speakers.
 		</member>
 	</members>
 </class>
