@@ -48,10 +48,14 @@ If Node4D ever exists, it would make sense to color it Yellow.
 
 ## Games using this 1D module
 
-* Aaron's Lovely Morning by Moowool
+* Aaron's Lovely Morning by [Moowool](https://github.com/RolandMarchand)
   - Has 2D visuals, but all game logic is 1D.
   - Itch page: https://moowool.itch.io/aarons-lovely-morning (Windows, Mac, Linux, Web)
   - Source code: https://github.com/RolandMarchand/aarons-lovely-morning (GPLv3)
+
+* Jump 1D by [Tameno](https://github.com/Tameno-01)
+  - Has 1D visuals and 1D game logic. Uses vertical mode.
+  - Source code: [Jump1D.zip](https://github.com/aaronfranke/godot-1d/files/12472746/Jump1D.zip)
 
 ## Branches
 
